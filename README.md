@@ -4,6 +4,8 @@ Official repository for the ICCV 2021 (Oral) paper "(Just) A Spoonful of Refinem
 
 **Paper:** [CVF Open Access](https://openaccess.thecvf.com/content/ICCV2021/html/Agostinho_Just_A_Spoonful_of_Refinements_Helps_the_Registration_Error_Go_ICCV_2021_paper.html)
 
+**Poster:** [here](assets/poster.pdf)
+
 **Video:** [YouTube](https://www.youtube.com/watch?v=Ut1mLi1cQpI)
 
 **Abstract:**
