@@ -1,0 +1,22 @@
+diff --git a/data.py b/data.py
+index a8fca7a..45c722f 100644
+--- a/data.py
++++ b/data.py
+@@ -21,7 +21,7 @@ def download():
+     if not os.path.exists(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048')):
+         www = 'https://shapenet.cs.stanford.edu/media/modelnet40_ply_hdf5_2048.zip'
+         zipfile = os.path.basename(www)
+-        os.system('wget %s; unzip %s' % (www, zipfile))
++        os.system('wget %s --no-check-certificate; unzip %s' % (www, zipfile))
+         os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
+         os.system('rm %s' % (zipfile))
+ 
+@@ -32,7 +32,7 @@ def load_data(partition):
+     DATA_DIR = os.path.join(BASE_DIR, 'data')
+     all_data = []
+     all_label = []
+-    for h5_name in glob.glob(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048', 'ply_data_%s*.h5' % partition)):
++    for h5_name in sorted(glob.glob(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048', 'ply_data_%s*.h5' % partition))):
+         f = h5py.File(h5_name)
+         data = f['data'][:].astype('float32')
+         label = f['label'][:].astype('int64')
