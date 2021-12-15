@@ -12,7 +12,10 @@ URLS = dict(
     ours=[
         "http://web.tecnico.ulisboa.pt/sergio.agostinho/share/just-a-spoonful/weights.zip"
     ],
-    rpm_net=["https://drive.google.com/uc?id=1NukECCiaklakqNgqsX8jb_Fueh9_UaK-"],
+    rpm_net=[
+        "https://drive.google.com/uc?id=1NukECCiaklakqNgqsX8jb_Fueh9_UaK-",
+        "https://drive.google.com/uc?id=1cvgpWG93Tb2z_xH8JTXYtKlIzXe_o5ri",
+    ],
 )
 
 REQUIRED_FILES = dict(
@@ -24,7 +27,10 @@ REQUIRED_FILES = dict(
         os.path.join("rpm-net", "ours-no-inlier-loss-crop.pth"),
         os.path.join("rpm-net", "vanilla-no-inlier-loss-crop.pth"),
     ],
-    rpm_net=[os.path.join("rpm-net", "vanilla-crop.pth")],
+    rpm_net=[
+        os.path.join("rpm-net", "vanilla-crop.pth"),
+        os.path.join("rpm-net", "vanilla-jitter.pth"),
+    ],
 )
 
 
@@ -54,7 +60,7 @@ def download_file_wget(url, dest_dir):
 def download_file_gdrive(url, dest_dir):
     cwd = os.getcwd()
     os.chdir(dest_dir)
-    print(gdown.download(url))
+    gdown.download(url)
     os.chdir(cwd)
 
 
@@ -103,6 +109,10 @@ def relocate_rpm_net(prefix, download_dir):
     shutil.move(
         os.path.join(download_dir, "partial-trained.pth"),
         os.path.join(dest_dir, "vanilla-crop.pth"),
+    )
+    shutil.move(
+        os.path.join(download_dir, "noisy-trained.pth"),
+        os.path.join(dest_dir, "vanilla-jitter.pth"),
     )
 
 

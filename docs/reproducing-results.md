@@ -59,3 +59,14 @@ cd "$RPM_PREFIX/src"
     ```shell
     python eval.py --noise_type crop --resume "$SPOONFUL_PREFIX/share/weights/rpm-net/ours-no-inlier-loss-crop.pth"
     ```
+
+## Table 2 (Supplementary) - RPM-Net on ModelNet40 with independent Gaussian noise
+
+1. RPM vanilla - provided by the authors [here](https://drive.google.com/uc?id=1cvgpWG93Tb2z_xH8JTXYtKlIzXe_o5ri)
+    ```shell
+    python eval.py --noise_type jitter --resume "$SPOONFUL_PREFIX/share/weights/rpm-net/vanilla-jitter.pth"
+    ```
+2. Ours. You'll notice the mean isotropic error is actually lower than what we reported in the table. Probably a copy-paste error.
+    ```shell
+    python eval.py --noise_type jitter --resume "$SPOONFUL_PREFIX/share/weights/rpm-net/ours-jitter.pth"
+    ```

@@ -2,6 +2,8 @@
 1f1d4fd0177e495a3c6dfa4e6464bb1f5608561d  dcp/ours-unseen.t7
 d2a8cc089b45efddff89303c94b1842692a12a0c  dcp/vanilla.t7
 b93d795d3e64ce149c612cdd545fb3787b9981e5  rpm-net/ours-crop.pth
+db0c58a3e0a479d21eefb2e63f2df0d8fa88fd3e  rpm-net/ours-jitter.pth
 7338ac35afeaf1f03958989ac78c75c826dd5315  rpm-net/ours-no-inlier-loss-crop.pth
 8914abec0b653b75fa37c74f2145e62190c0fa10  rpm-net/vanilla-crop.pth
+9335b797d99ee23d46384ec923bdeecd6564e954  rpm-net/vanilla-jitter.pth
 e402cfa48bb733b2c9ce3ff6693d4ba96c19fa05  rpm-net/vanilla-no-inlier-loss-crop.pth
