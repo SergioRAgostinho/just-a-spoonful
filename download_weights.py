@@ -5,14 +5,26 @@ import subprocess
 from tempfile import TemporaryDirectory
 from warnings import warn
 
+import gdown
+
 URLS = dict(
-    dcp="https://github.com/WangYueFt/dcp/raw/master/pretrained/dcp_v2.t7",
-    ours="http://web.tecnico.ulisboa.pt/sergio.agostinho/share/just-a-spoonful/weights.zip",
+    dcp=["https://github.com/WangYueFt/dcp/raw/master/pretrained/dcp_v2.t7"],
+    ours=[
+        "http://web.tecnico.ulisboa.pt/sergio.agostinho/share/just-a-spoonful/weights.zip"
+    ],
+    rpm_net=["https://drive.google.com/uc?id=1NukECCiaklakqNgqsX8jb_Fueh9_UaK-"],
 )
 
 REQUIRED_FILES = dict(
     dcp=[os.path.join("dcp", "vanilla.t7")],
-    ours=[os.path.join("dcp", "ours.t7"), os.path.join("dcp", "ours-unseen.t7")],
+    ours=[
+        os.path.join("dcp", "ours.t7"),
+        os.path.join("dcp", "ours-unseen.t7"),
+        os.path.join("rpm-net", "ours-crop.pth"),
+        os.path.join("rpm-net", "ours-no-inlier-loss-crop.pth"),
+        os.path.join("rpm-net", "vanilla-no-inlier-loss-crop.pth"),
+    ],
+    rpm_net=[os.path.join("rpm-net", "vanilla-crop.pth")],
 )
 
 
@@ -31,9 +43,19 @@ def download_keys(prefix, force=False):
     return missing_files
 
 
-def download_file(url, prefix=None):
-    subprocess.run(["wget", str(url)], cwd=prefix)
-    raise NotImplementedError
+def download_file_wget(url, dest_dir):
+    try:
+        subprocess.run(["wget", url], cwd=dest_dir, check=True)
+    except subprocess.CalledProcessError:
+        msg = f"Could not download file package with url {url}"
+        raise RuntimeError(msg)
+
+
+def download_file_gdrive(url, dest_dir):
+    cwd = os.getcwd()
+    os.chdir(dest_dir)
+    print(gdown.download(url))
+    os.chdir(cwd)
 
 
 def download_weights(prefix, download_dir=None, force=False):
@@ -43,12 +65,13 @@ def download_weights(prefix, download_dir=None, force=False):
     else:
         print(f"Downloading files:\nAll files present. Nothing to download")
 
+    f = dict(
+        dcp=download_file_wget, ours=download_file_wget, rpm_net=download_file_gdrive
+    )
+
     for k in keys:
-        try:
-            subprocess.run(["wget", URLS[k]], cwd=download_dir, check=True)
-        except subprocess.CalledProcessError:
-            msg = f"Could not download file package '{k}' with url {URLS[k]}"
-            raise RuntimeError(msg)
+        for url in URLS[k]:
+            f[k](url, dest_dir=download_dir)
     return keys
 
 
@@ -74,8 +97,17 @@ def relocate_ours(prefix, download_dir):
         raise RuntimeError(msg)
 
 
+def relocate_rpm_net(prefix, download_dir):
+    dest_dir = os.path.join(prefix, "share", "weights", "rpm-net")
+    os.makedirs(dest_dir, exist_ok=True)
+    shutil.move(
+        os.path.join(download_dir, "partial-trained.pth"),
+        os.path.join(dest_dir, "vanilla-crop.pth"),
+    )
+
+
 def relocate_weights(file_keys, prefix, download_dir):
-    f = dict(dcp=relocate_dcp, ours=relocate_ours)
+    f = dict(dcp=relocate_dcp, ours=relocate_ours, rpm_net=relocate_rpm_net)
     for k in file_keys:
         f[k](prefix, download_dir)
 

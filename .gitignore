@@ -1,2 +1,3 @@
 # weights for dcp
 *.t7
+*.pth
