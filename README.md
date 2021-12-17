@@ -12,6 +12,48 @@ Official repository for the ICCV 2021 (Oral) paper "(Just) A Spoonful of Refinem
 
 In this paper, we tackle data-driven 3D point cloud registration. Given point correspondences, the standard Kabsch algorithm provides an optimal rotation estimate. This allows to train registration models in an end-to-end manner by differentiating the SVD operation. However, given the initial rotation estimate supplied by Kabsch, we show we can improve point correspondence learning during model training by extending the original optimization problem. In particular, we linearize the governing constraints of the rotation matrix and solve the resulting linear system of equations. We then iteratively produce new solutions by updating the initial estimate. Our experiments show that, by plugging our differentiable layer to existing learning-based registration methods, we improve the correspondence matching quality. This yields up to a 7% decrease in rotation error for correspondence-based data-driven registration methods. 
 
+## Implementation Release
+
+The repository provides a stripped and clean version of the method reported in the paper that can be added to any correspondence based point cloud registration method. To use it just call
+```shell
+pip install git+https://github.com/SergioRAgostinho/just-a-spoonful.git
+```
+and import it from your code as
+```python
+from spoonful import spoonful
+```
+Here's the docstring for the function explaining how to use it. You can access it by calling
+```
+>>> help(spoonful)
+
+Help on function spoonful in module spoonful:
+
+spoonful(R: torch.Tensor, Ps: torch.Tensor, Pt: torch.Tensor, iters: int = 5, weights: torch.Tensor = None, use_target: bool = False, eps: float = 1e-05) -> Tuple[torch.Tensor, torch.Tensor]
+    Takes up a candidate rotation and a set of correspondences from the source and target
+    point clouds and produces additional poses under the linearized constraints for the rotation.
+
+    This is the function in this file you'll want to call most often.
+
+    B - Batch size
+    N - Number of correspondences
+    I - Number of iterations
+
+    Parameters:
+        R : A batch of initial rotation matrices Bx3x3
+        Ps: Correspondence points from the source point cloud BxNx3
+        Pt: Correspondence points from the target point cloud BxNx3
+        iters: Number of iterations to perform
+        weights: A tensor of non-negative weights ranking each correspondence BxN
+        use_target: Whether the source or target point clouds should be used to form matrix A. If you experience instability, try setting it to True
+        eps: Small epsilon to prevent division by zero situations
+
+
+    Returns:
+        R_all: A set of new rotation estimates BxIx3x3
+        t_all: A set of new translation estimates BxIx3
+```
+
+
 ## Model Release
 
 Because the paper proposes exclusively a new training technique and shows its benefits in two separate networks -- DCP and RPM-Net -- one can still use the original projects to evaluate the improvements of the newly trained weights in their old tasks, using the DCP's and RPM-Net's published code. After following the instruction bellow, you'll have a minimal setup to start generating some of the tables in the paper. For instruction on how to do that check [docs/reproducing-results.md](docs/reproducing-results.md).
@@ -66,6 +108,10 @@ The SHA-1 checksums for all files are available at [share/weights/weights.sha1su
 
 
 ## Announcements
+
+#### December 17th 2021
+
+I've released a cleaned up version of the method presented in the paper! I've quickly validated it's producing the same outputs but it's still pending actually trying it on a fresh DCP and RPM-Net repo for training. I'll publish the required modifications for that in the next days/weeks.
 
 #### December 15th 2021
 

@@ -1,3 +1,10 @@
 # weights for dcp
 *.t7
 *.pth
+
+# python byte code compilation artifacs
+__pycache__
+
+# setupttools artifacts
+*.egg-info
+build
