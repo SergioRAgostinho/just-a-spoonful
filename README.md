@@ -29,7 +29,7 @@ If you have access `wget` and `unzip` installed and visible in your PATH, I've p
     ```
 
 
-In case you don't have these utilities installed, you can also download the weights from [here](http://web.tecnico.ulisboa.pt/sergio.agostinho/share/just-a-spoonful/weights.zip) (as well as from their original projects) and manually extract them to [share/weights](share/weights). If you go down the manual route, you'll need to rename and move the files appropriately. Check [download_weights.py](download_weights.py#L10-L26) for an insight into the required urls and file names.
+In case you don't have these utilities installed, you can also download the weights from [here](http://web.tecnico.ulisboa.pt/sergio.agostinho/share/just-a-spoonful/weights.zip) (as well as from their original projects) and manually extract them to [share/weights](share/weights). If you go down the manual route, you'll need to rename and move the files appropriately. Check [download_weights.py](download_weights.py#L10-L34) for an insight into the required urls and file names.
 The SHA-1 checksums for all files are available at [share/weights/weights.sha1sum](share/weights/weights.sha1sum).
 
 ---
