@@ -113,6 +113,8 @@ The SHA-1 checksums for all files are available at [share/weights/weights.sha1su
 
 I've released a cleaned up version of the method presented in the paper! I've quickly validated it's producing the same outputs but it's still pending actually trying it on a fresh DCP and RPM-Net repo for training. I'll publish the required modifications for that in the next days/weeks.
 
+I've also information about the environments I used while training DCP and RPM-Net in [share/envs](share/envs).
+
 #### December 15th 2021
 
 I've released models and instructions for recreating the RPM-Net's results with their project.
