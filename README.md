@@ -75,15 +75,33 @@ In case you don't have these utilities installed, you can also download the weig
 The SHA-1 checksums for all files are available at [share/weights/weights.sha1sum](share/weights/weights.sha1sum).
 
 ---
-### DCP
+### DCP Fork
+
+This should be your preferred method for evaluating DCP models moving forward. It will allow you to reproduce most tables in the paper.
+
+1. Clone the fork from https://github.com/SergioRAgostinho/dcp.git and navigate to that project's folder
+    ```shell
+    git clone https://github.com/SergioRAgostinho/dcp.git; cd dcp
+    ```
+2. Export the path to `dcp` project, for later reuse
+    ```shell
+    export DCP_PREFIX="<substitute with the appropriate parent folder>/dcp"
+    ```
+4. Install DCP's dependencies according to the original [instructions](https://github.com/SergioRAgostinho/dcp#prerequisites)
+
+### Original DCP
+
+Note: Skip this if you already executed the steps in [DCP Fork](#dcp-fork).
+
+Adopting this procedure will prevent you from reproducing certain results presented in the paper. The procedure might be deprecated in the future.
 
 1. Clone the original repository from https://github.com/WangYueFt/dcp.git and navigate to that project's folder
     ```shell
     git clone https://github.com/WangYueFt/dcp.git; cd dcp
     ```
-2. Export the path to `just-a-spoonful` project, for later reuse
+2. Export the path to `dcp` project, for later reuse
     ```shell
-    export SPOONFUL_PREFIX="<substitute with the appropriate parent folder>/just-a-spoonful"
+    export DCP_PREFIX="<substitute with the appropriate parent folder>/dcp"
     ```
 3. DCP needs to be patched for two things: 1) It currently fails to download modelnet40 data due to a missing option in the `wget` call; 2) In order to recreate the exact results reported in our paper, there is randomized step that needs to be made deterministic. The patch in [share/patches/dcp-data.diff](share/patches/dcp-data.diff) addresses both. To apply it, run the following (still in DCP's root folder)
     ```shell
@@ -99,15 +117,20 @@ The SHA-1 checksums for all files are available at [share/weights/weights.sha1su
     ```shell
     git clone https://github.com/yewzijian/RPMNet.git; cd RPMNet
     ```
-2. Export the path to `just-a-spoonful` project, for later reuse
+2. Export the path to `RPM-Net` project, for later reuse
     ```shell
-    export SPOONFUL_PREFIX="<substitute with the appropriate parent folder>/just-a-spoonful"
+    export RPM_PREFIX="<substitute with the appropriate parent folder>/RPMNet"
     ```
 3. Install RPM-Net's dependencies according to their [instructions](https://github.com/yewzijian/RPMNet#prerequisites).
 
 
 
 ## Announcements
+
+#### December 20th 2021
+
+I've started releasing modifications to the original DCP project in order to reproduce paper results. The new fork is located at https://github.com/SergioRAgostinho/dcp.git. I will prioritize reproducing all results first before moving into training code.
+
 
 #### December 17th 2021
 
