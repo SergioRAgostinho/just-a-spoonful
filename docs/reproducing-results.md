@@ -35,6 +35,19 @@ cd "$DCP_PREFIX"
     python main.py --exp_name=dcp_v2 --model=dcp --emb_nn=dgcnn --pointer=transformer --head=svd --eval --unseen True --model_path="$SPOONFUL_PREFIX/share/weights/dcp/ours-unseen.t7"
     ```
 
+## Table 4 - Initialization experiment with DCP on ModelNet40 with unseen categories
+
+Note: In the following commands I make use of the wildcard symbol * used to expand the paths to all models under `share/weights/init-unseen/vanilla/` and `share/weights/init-unseen/ours/`. Because of it, I no longer escape the path between quotes when specifying the model paths.
+
+1. DCP vanilla
+    ```shell
+    python eval_initialization.py --exp_name=dcp_v2 --model=dcp --emb_nn=dgcnn --pointer=transformer --head=svd --eval --unseen True --init_model_list $SPOONFUL_PREFIX/share/weights/dcp/init-unseen/vanilla/*
+    ```
+2. Ours
+    ```shell
+    python eval_initialization.py --exp_name=dcp_v2 --model=dcp --emb_nn=dgcnn --pointer=transformer --head=svd --eval --unseen True --init_model_list $SPOONFUL_PREFIX/share/weights/dcp/init-unseen/ours/*
+    ```
+
 ## Table 1 (Supplementary) - DCP on ModelNet40 [original]
 
 1. DCP vanilla
@@ -46,6 +59,7 @@ cd "$DCP_PREFIX"
     ```shell
     python main.py --exp_name=dcp_v2 --model=dcp --emb_nn=dgcnn --pointer=transformer --head=svd --eval --model_path="$SPOONFUL_PREFIX/share/weights/dcp/ours.t7"
     ```
+
 
 # RPM-Net
 

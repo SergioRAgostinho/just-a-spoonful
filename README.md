@@ -127,6 +127,10 @@ Adopting this procedure will prevent you from reproducing certain results presen
 
 ## Announcements
 
+#### December 21th 2021
+
+I've released the necessary models and script to generate the results from the DCP initialization experiment (Table 4). To do so, I had to include all pretrained models into the current model pack, which severely increased the list of models being distributed and the repository size. (60MB -> ~900MB)
+
 #### December 20th 2021
 
 I've started releasing modifications to the original DCP project in order to reproduce paper results. The new fork is located at https://github.com/SergioRAgostinho/dcp.git. I will prioritize reproducing all results first before moving into training code.
